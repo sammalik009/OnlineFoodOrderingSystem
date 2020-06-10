@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "AdminView";
+    Layout = "~/Views/Shared/adminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-9">
+        <h1>Home</h1></div>
+    <div class="col-md-3"><h4 class="text-muted">Your Credit : @ViewBag.credit RS</h4></div>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Users</th>
+            <th scope="col">Orders</th>
+            <th scope="col">Income</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+            <th scope="row">
+                Total Users
+                <span class="badge badge-primary badge-pill">@ViewBag.totalUsers</span>
+            </th>
+            <th scope="row">Total Order Placed
+                <span class="badge badge-info badge-pill">@ViewBag.totalOrdersPlaced</span>
+            </th>
+            <th scope="row">
+                Total Profit
+                <span class="badge badge-success badge-pill">@ViewBag.Profit</span>
+            </th>
+        </tr>
+        <tr class="table-light">
+            <th scope="row">
+                Total Restaurants
+                <span class="badge badge-primary badge-pill">@ViewBag.totalRestaurants</span>
+            </th>
+            <th scope="row">
+                Total Order Fullfilled
+                <span class="badge badge-success badge-pill">@ViewBag.totalOrdersFullfilled</span>
+            </th>
+            <th scope="row">
+                Over All Income
+                <span class="badge badge-success badge-pill">@ViewBag.OverAllIncome</span>
+            </th>
+        </tr>
+        <tr class="table-light">
+            <th scope="row">
+                Total Menu Items
+                <span class="badge badge-primary badge-pill">@ViewBag.totalMenuItems</span>
+            </th>
+            <th scope="row">
+                Total Pending Orders
+                <span class="badge badge-warning badge-pill">@ViewBag.totalPendingOrders</span>
+            </th>
+            <th scope="row">
+                Total Remaining Balance
+                <span class="badge badge-warning badge-pill">@ViewBag.totalRemainingBalance</span>
+            </th>
+        </tr>
+        <tr class="table-danger">
+            <th scope="row" />
+            <th scope="row">
+                Total Orders Expired
+                <span class="badge badge-danger badge-pill">@ViewBag.totalOrdersExpired</span>
+            </th>
+            <th scope="row">
+                Total Loss
+                <span class="badge badge-danger badge-pill">@ViewBag.Loss</span>
+            </th>
+        </tr>
+    </tbody>
+</table>
+<div class="row">
+    @foreach (var i in ViewBag.images)
+    {
+        <div class="card mb-3 col-md-4">
+            <h3 class="card-header">@i.Title</h3>
+            <div class="card-body">
+                <h5 class="card-title">@i.RestaurantName</h5>
+                <h6 class="card-subtitle text-muted">@i.Type</h6>
+            </div>
+            <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+            <div class="card-body">
+                <p class="card-text">@i.Description</p>
+                <p class="card-text">@i.price  RS Only</p>
+            </div>
+            <div class="card-body">
+                Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+             </div>
+        </div>
+    }
+</div>
+<script>
+    function placeOrder(id) {
+        var v = document.getElementById(id);
+        var amount = v.value;
+        var key=0;
+        if (v.value > 0) {
+            if(confirm("Do You Want To Pay By Cash?")===true){
+                key=1;
+            }
+            else{
+                key=0;
+            }
+                $.post("@Url.Action("PlaceOrder","Home")",
+            {
+                id : id,
+                amount : amount,
+                key : key
+            },
+            function (data) {
+                if (data == 0) {
+                    alert("Order Placed Successfully!");
+                    v.value=0;
+                }
+                else if (data == 1) {
+                    alert("Order Cannot Be Placed!");
+                    v.value=0;
+                }
+            });
+    }
+    }
+    function AddToCart(id) {
+        var v = document.getElementById(id);
+        var amount = v.value;
+        var key=0;
+        if (v.value > 0) {
+            $.post("@Url.Action("AddToCart","Home")",
+        {
+            id : id,
+            amount : amount,
+            },
+        function (data) {
+            if (data == 0) {
+                alert("Added Successfully!");
+                v.value=0;
+            }
+            else if (data == 1) {
+                alert("Cannot Be Added Into Cart!");
+                v.value=0;
+            }
+        });
+    }
+    }
+</script>

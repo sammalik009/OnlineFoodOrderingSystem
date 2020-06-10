@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "ViewYourOrders";
+    Layout = "~/Views/Shared/adminLayout.cshtml";
+}
+
+<h1>Pending Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Method</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list1)
+        {
+            <tr class="table-warning">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                @if (v.balance == 0)
+                {
+                    <th scope="row">
+                        Credit
+                    </th>
+                }
+                @if (v.balance > 0)
+                {
+                    <th scope="row">
+                        Cash
+                    </th>
+                }
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+                <th scope="row">
+                    <button class="form-control" onclick="receiveOrder(@v.Id)">Received</button>
+                </th>
+                <th scope="row">
+                    <button class="form-control" onclick="cancelOrder(@v.Id)">Cancel</button>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>FullFilled Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Method</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list2)
+        {
+            <tr class="table-success">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                @if (v.balance == 0)
+                {
+                    <th scope="row">
+                        Credit
+                    </th>
+                }
+                @if (v.balance > 0)
+                {
+                    <th scope="row">
+                        Cash
+                    </th>
+                }
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Expired Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list3)
+        {
+            <tr class="table-danger">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function receiveOrder(id) {
+        if (confirm("Are you sure you have received this Order?!") === true) {
+            $.post("@Url.Action("ReceiveOrder","Home")",
+        {
+            id: id,
+            },
+        function (data) {
+            if (data == 0) {
+                alert("Updated Successfully");
+            }
+            else if (data == 1) {
+                alert("Not Able to update this Restaurant");
+            }
+            window.location.reload();
+        });
+        }
+    }
+    function cancelOrder(id) {
+        if (confirm("Are you sure you want to cancel this Order?!") === true) {
+            $.post("@Url.Action("cancelOrder","Home")",
+        {
+            id: id,
+            },
+        function (data) {
+            if (data == 0) {
+                alert("Updated Successfully");
+            }
+            else if (data == 1) {
+                alert("Not Able to update this Restaurant");
+            }
+            window.location.reload();
+        });
+    }
+    }
+</script>

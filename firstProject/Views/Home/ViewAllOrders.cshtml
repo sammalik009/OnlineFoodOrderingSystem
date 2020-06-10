@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "ViewAllOrders";
+    Layout = "~/Views/Shared/adminLayout.cshtml";
+}
+<h1>Pending Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Method</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.pendings) { 
+            <tr class="table-warning">
+                <th scope="row">@v.itemName
+                </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>   
+                <th scope="row">@v.userName
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                @if (v.balance == 0)
+                {
+                    <th scope="row">
+                        Credit
+                    </th>
+                }
+                @if (v.balance > 0)
+                {
+                    <th scope="row">
+                        Cash
+                    </th>
+                }
+                <th scope="row">@v.TimeToPlaceOrder
+                </th>
+                <th scope="row">@v.TimeToFullfillOrder
+                </th>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<h1>FullFilled Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Method</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.fullfilled)
+        {
+            <tr class="table-success">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>
+                <th scope="row">
+                    @v.userName
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                @if (v.balance == 0)
+                {
+                    <th scope="row">
+                        Credit
+                    </th>
+                }
+                @if (v.balance > 0)
+                {
+                    <th scope="row">
+                        Cash
+                    </th>
+                }
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Expired Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.expired)
+        {
+            <tr class="table-danger">
+                <th scope="row">
+                    @v.itemName
+            </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>
+                <th scope="row">
+                    @v.userName
+                </th>
+            <th scope="row">
+                @v.payment
+        </th>
+        <th scope="row">
+            @v.TimeToPlaceOrder
+    </th>
+    <th scope="row">
+        @v.TimeToFullfillOrder
+</th>
+</tr>
+        }
+    </tbody>
+</table>

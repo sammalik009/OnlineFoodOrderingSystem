@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "ViewRestaurants";
+    Layout = "~/Views/Shared/adminLayout.cshtml";
+}
+
+<h2>Restaurants</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Restaurant Title</th>
+            <th scope="col">Owner's Name</th>
+            <th scope="col">Location</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.restaurants)
+        {
+            <tr class="table-info">
+                <th scope="row">
+                    <a href="~/Home/ViewRestaurant/@v.Id">@v.RestaurantTitle</a>
+                </th>
+                <th scope="row">
+                    @v.Name
+                </th>
+                <th scope="row">
+                    @v.Location
+                </th>
+                <th scope="row">
+                    <button class="form-control" onclick="removeRestaurant(@v.Id)">Remove</button>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function removeRestaurant(id) {
+        if(confirm("Are You sure You want to remove this Restaurant")===true){
+                $.post("@Url.Action("RemoveRestaurant","Home")",
+            {
+                id: id,
+            },
+            function (data) {
+                if (data == 0) {
+                    alert("Removed Successfully");
+                }
+                else if (data == 1) {
+                    alert("Not Able to remove this Restaurant");
+                }
+                window.location.reload();
+            });
+        }
+    }
+</script>

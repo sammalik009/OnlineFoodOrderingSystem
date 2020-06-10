@@ -1,0 +1,344 @@
+﻿
+@{
+    ViewBag.Title = "ViewRestaurant3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="alert alert-primary">
+    <h1 class="text-muted">Restaurant Name : @ViewBag.restaurant.RestaurantTitle</h1>
+    <h2 class="text-success">Owner Name : @ViewBag.restaurant.Name</h2>
+    Location : @ViewBag.restaurant.Location
+</div>
+
+<div id="fh5co-container">
+    <div id="fh5co-about" data-section="about">
+        <div class="fh5co-2col fh5co-bg to-animate-2" style="background-image: url(images/res_img_1.jpg)"></div>
+        <div class="fh5co-2col fh5co-text">
+            <h2 class="heading to-animate">About Us</h2>
+            <p class="to-animate"><span class="firstcharacter">F</span>ar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.</p>
+        </div>
+    </div>
+    <div id="fh5co-events" data-section="events" style="background-image: url(images/slide_2.jpg);" data-stellar-background-ratio="0.5">
+        <div class="fh5co-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="fh5co-event to-animate-2">
+                        <h3>Kitchen Workshops</h3>
+                        <span class="fh5co-event-meta">March 19th, 2016</span>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fh5co-event to-animate-2">
+                        <h3>Music Concerts</h3>
+                        <span class="fh5co-event-meta">March 19th, 2016</span>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fh5co-event to-animate-2">
+                        <h3>Free to Eat Party</h3>
+                        <span class="fh5co-event-meta">March 19th, 2016</span>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.flexslider-min.js"></script>
+<script src="js/main.js"></script>
+@if (ViewBag.count1 > 0)
+{
+    <h1>Fast Food</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list1)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count2 > 0)
+{
+    <h1>Desi Food</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list2)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count3 > 0)
+{
+    <h1>Deserts</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list3)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count4 > 0)
+{
+    <h1>Drinks</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list4)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count5 > 0)
+{
+    <h1>Bar_B_Que</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list5)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count6 > 0)
+{
+    <h1>Starters</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list6)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count7 > 0)
+{
+    <h1>Pizza</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list7)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count8 > 0)
+{
+    <h1>Sandwitch</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list8)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+@if (ViewBag.count9 > 0)
+{
+    <h1>Burgers</h1>
+    <div class="row">
+        @foreach (var i in ViewBag.list9)
+        {
+            <div class="card mb-3 col-md-4">
+                <h3 class="card-header">@i.Title</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@i.RestaurantName</h5>
+                    <h6 class="card-subtitle text-muted">@i.Type</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text">@i.Description</p>
+                    <p class="card-text">@i.price  RS Only</p>
+                </div>
+                <div class="card-body">
+                    Quantity : <input type="number" class="form-control" min="0" id="@i.Id" />
+                    <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.Id)" />
+                    <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.Id)" />
+                </div>
+            </div>
+        }
+    </div>
+}
+<script>
+    function AddToCart(id) {
+        var v = document.getElementById(id);
+        var amount = v.value;
+        var key=0;
+        if (v.value > 0) {
+            $.post("@Url.Action("AddToCart","Home")",
+        {
+            id : id,
+            amount : amount,
+            },
+        function (data) {
+            if (data == 0) {
+                alert("Added Successfully!");
+                v.value=0;
+            }
+            else if (data == 1) {
+                alert("Cannot Be Added Into Cart!");
+                v.value=0;
+            }
+        });
+    }
+    }
+    function placeOrder(id) {
+        var v = document.getElementById(id);
+        var amount = v.value;
+        var key = 0;
+        if (v.value > 0) {
+            if (confirm("Do You Want To Pay By Cash?") === true) {
+                key = 1;
+            }
+            else {
+                key = 0;
+            }
+            $.post("@Url.Action("PlaceOrder","Home")",
+        {
+            id: id,
+            amount: amount,
+            key: key
+        },
+        function (data) {
+            if (data == 0) {
+                alert("Order Placed Successfully!");
+                v.value = 0;
+            }
+            else if (data == 1) {
+                alert("Order Cannot Be Placed!");
+                v.value = 0;
+            }
+        });
+        }
+    }
+</script>

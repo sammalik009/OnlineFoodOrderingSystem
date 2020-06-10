@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "AboutRestaurant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="alert alert-primary">
+    <h1 class="text-muted">Restaurant Name : @ViewBag.r.RestaurantTitle</h1>
+    <h2 class="text-success">Owner Name : @ViewBag.r.Name</h2>
+    Location : @ViewBag.r.Location
+</div>
+
+    <div id="fh5co-container">
+        <div id="fh5co-about" data-section="about">
+            <div class="fh5co-2col fh5co-bg to-animate-2" style="background-image: url(images/res_img_1.jpg)"></div>
+            <div class="fh5co-2col fh5co-text">
+                <h2 class="heading to-animate">About Us</h2>
+                <p class="to-animate"><span class="firstcharacter">F</span>ar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.</p>
+            </div>
+        </div>
+        <div id="fh5co-events" data-section="events" style="background-image: url(images/slide_2.jpg);" data-stellar-background-ratio="0.5">
+            <div class="fh5co-overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="fh5co-event to-animate-2">
+                            <h3>Kitchen Workshops</h3>
+                            <span class="fh5co-event-meta">March 19th, 2016</span>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="fh5co-event to-animate-2">
+                            <h3>Music Concerts</h3>
+                            <span class="fh5co-event-meta">March 19th, 2016</span>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="fh5co-event to-animate-2">
+                            <h3>Free to Eat Party</h3>
+                            <span class="fh5co-event-meta">March 19th, 2016</span>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+    <script>
+		$(function () {
+	       $('#date').datetimepicker();
+	   });
+    </script>
+    <script src="js/main.js"></script>
+<div class="alert alert-info">
+    <h5 class="text-muted">Owner's Address : @ViewBag.u.Address</h5>
+    <p>Credit Card Number : @ViewBag.u.CreditCardId</p>
+    <p>Credit Card Amount : @ViewBag.u.CreditCardAmount</p>
+    <p>Number : @ViewBag.u.Number</p>
+    <p>Email : @ViewBag.u.Email</p>
+</div>

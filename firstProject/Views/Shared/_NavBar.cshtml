@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "_NavBar";
+}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/Home/RestaurantView">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/ViewMenuItems">Menu Items</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Image/Add">Add Menu Item</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/ViewOrders">Placed Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/ViewOrders2">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/ShowCart3">Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/AboutRestaurant">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/Logout">Logout</a>
+            </li>
+        </ul>
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" id="search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit" onclick="searchFunction()">Search</button>
+    </div>
+</nav>
+<script>
+    function searchFunction() {
+        var v = document.getElementById("search");
+        if (v.value.length >= 1) {
+            window.location.href = "SearchFunction2?search='" + v.value+"'";
+        }
+    }
+</script>

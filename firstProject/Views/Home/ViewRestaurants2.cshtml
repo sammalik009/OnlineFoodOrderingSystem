@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "ViewRestaurants2";
+    Layout = "~/Views/Shared/customerLayout.cshtml";
+}
+<h2>Restaurants</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Restaurant Title</th>
+            <th scope="col">Owner's Name</th>
+            <th scope="col">Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.restaurants)
+        {
+            <tr class="table-info">
+                <th scope="row">
+                    <a href="~/Home/ViewRestaurant2/@v.Id">@v.RestaurantTitle</a>
+                </th>
+                <th scope="row">
+                    @v.Name
+                </th>
+                <th scope="row">
+                    @v.Location
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

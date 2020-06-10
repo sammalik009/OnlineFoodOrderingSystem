@@ -1,0 +1,85 @@
+﻿@model firstProject.Models.Image
+
+@{
+    ViewBag.Title = "Add";
+}
+<h2>Add</h2>
+@using (Html.BeginForm("Add","Image",FormMethod.Post, new {enctype="multipart/form-data"})) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <input type="text" name="Title" id="text1" onblur="checkTitle(this.id)" minlength="5" maxlength="30" class="form-control" required placeholder="Enter Title" />
+        </div>
+        <div class="form-group">
+            <label for="Select1">Select Food Type</label>
+            <select class="form-control" id="Select1" name="Type" required>
+                <option>Fast Food</option>
+                <option>Desi</option>
+                <option>Desert</option>
+                <option>Drinks</option>
+                <option>Bar_B_Q</option>
+                <option>Starters</option>
+                <option>Pizza</option>
+                <option>Burger</option>
+                <option>Sandwitches</option>
+            </select>
+        </div>
+        <div class="form-group">
+                <label for="number">Enter Price</label>
+                <input type="number" class="form-control" id="number" name="price" required/>
+        </div>
+        <div class="form-group">
+                <label for="text2">Enter Products Description</label>
+                <input type="text" class="form-control" id="text2" name="Description" required />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div>
+                <input type="file" name="ImageFile" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Menu Item" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function checkTitle(id) {
+        var v = document.getElementById(id);
+        var v1 = document.getElementById("div1");
+        v1.innerHTML = '';
+        if (v.value.length >= 5) {
+            if (v.value.indexOf(' ') >= 0) {
+                v1.innerHTML = '<font color="Red">Menu Item Cannot Contain Spaces</font>';
+                v.value = '';
+            }
+            else {
+                $.post("@Url.Action("CheckTitle","Image")",
+            {
+                title: v.value
+            },
+            function (data) {
+                if (data == 0) {
+                    v1.innerHTML = '<font color="Green">Available</font>'
+                }
+                else if (data == 1) {
+                    v1.innerHTML = '<font color="Red">Not Available</font>'
+                    v.value = '';
+                }
+            });
+        }
+    }
+    }
+</script>

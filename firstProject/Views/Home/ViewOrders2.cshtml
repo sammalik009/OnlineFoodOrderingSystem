@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "ViewOrders2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Pending Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Customer's Address</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list1)
+        {
+            <tr class="table-warning">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.userName
+                </th>
+                <th scope="row">
+                    @v.customerAddress
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.balance
+                </th>
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>FullFilled Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Customer's Address</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list2)
+        {
+            <tr class="table-success">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.userName
+                </th>
+                <th scope="row">
+                    @v.customerAddress
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Expired Orders</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Customer's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Order Placement Time</th>
+            <th scope="col">Order Expiration Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list3)
+        {
+            <tr class="table-danger">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.userName
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.TimeToPlaceOrder
+                </th>
+                <th scope="row">
+                    @v.TimeToFullfillOrder
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

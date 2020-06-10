@@ -1,0 +1,182 @@
+﻿@model firstProject.Models.Restaurant
+
+@{
+    ViewBag.Title = "AddRestaurant";
+    Layout = "~/Views/Shared/adminLayout.cshtml";
+}
+@using (Html.BeginForm("CreateRestaurant","Home",FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Restaurant</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="RestaurantTitle">Enter Restaurant Title</label>
+                <input type="text" class="form-control" id="RestaurantTitle" name="RestaurantTitle" minlength="5" maxlength="30" placeholder="Enter Restaurant Name" onblur="checkRestaurantName(this.id)" required>
+                <i id="div6"></i>
+        </div>
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" class="form-control" id="Name" name="Name" minlength="5" maxlength="15" placeholder="Enter Your Name" onblur="checkUserName(this.id)" required>
+            <i id="div1"></i>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email address</label>
+            <input type="email" class="form-control" id="Email" name="Email" minlength="10" maxlength="30" placeholder="Enter email" onblur="checkEmail(this.id)" required>
+            <i id="div2"></i>
+        </div>
+        <div class="form-group">
+            <label for="Address">Owner's Address</label>
+            <input type="text" class="form-control" id="Address" name="Address" minlength="20" maxlength="60" aria-describedby="addressHelp" placeholder="Enter address" required>
+        </div>
+        <div class="form-group">
+            <label for="Location">Restaurant's Location</label>
+            <input type="text" class="form-control" id="Location" name="Location" minlength="20" maxlength="60" aria-describedby="addressHelp" placeholder="Enter location" required>
+        </div>
+        <div class="form-group">
+            <label for="Number">Number</label>
+            <input type="text" class="form-control" id="Number" name="Number" minlength="11" maxlength="11" aria-describedby="numberHelp" placeholder="Enter number" onblur="checkNumber(this.id)" required>
+            <i id="div3"></i>
+        </div>
+        <div class="form-group">
+            <label for="CreditCardId">Credit Card</label>
+            <input type="text" class="form-control" id="CreditCardId" name="CreditCardId" minlength="10" maxlength="10" aria-describedby="creditHelp" placeholder="Enter Credit Card Number" onblur="checkCredit(this.id)" required>
+            <i id="div4"></i>
+        </div>
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input type="password" class="form-control" name="Password" minlength="8" maxlength="20" id="Password" placeholder="Password" onblur="checkPassword(this.id)" required>
+            <i id="div5"></i>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Restaurant" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+        function checkRestaurantName(id) {
+            var v = document.getElementById(id);
+            var v1 = document.getElementById("div6");
+            v1.innerHTML = '';
+            if (v.value.length >= 5) {
+                    $.post("@Url.Action("CheckRestaurantName","Home")",
+                        {
+                            name: v.value
+                        },
+                        function (data) {
+                            if (data == 0) {
+                                v1.innerHTML = '<font color="Green">Available</font>'
+                            }
+                            else if (data == 1) {
+                                v1.innerHTML = '<font color="Red">Not Available</font>'
+                                v.value = '';
+                            }
+                        });
+            }
+        }
+    function checkUserName(id) {
+        var v = document.getElementById(id);
+        var v1 = document.getElementById("div1");
+        v1.innerHTML = '';
+        if (v.value.length >= 5) {
+            if (v.value.indexOf(' ') >= 0) {
+                v1.innerHTML = '<font color="Red">UserName Cannot Contain Spaces</font>';
+                v.value = '';
+            }
+            else {
+                $.post("@Url.Action("CheckOwnerName","Home")",
+            {
+                OwnerName: v.value
+            },
+            function (data) {
+                if (data == 0) {
+                    v1.innerHTML = '<font color="Green">Available</font>'
+                }
+                else if (data == 1) {
+                    v1.innerHTML = '<font color="Red">Not Available</font>'
+                    v.value = '';
+                }
+            });
+        }
+    }
+    }
+    function checkEmail(id) {
+        var v = document.getElementById(id);
+        var v1 = document.getElementById("div2");
+        v1.innerHTML = '';
+        if (v.value.length >= 10) {
+            $.post("@Url.Action("CheckEmail","Home")",
+            {
+                email: v.value
+            },
+            function (data) {
+                if (data == 0) {
+                    v1.innerHTML = '<font color="Green">Available</font>'
+                }
+                else if (data == 1) {
+                    v1.innerHTML = '<font color="Red">Not Valid</font>'
+                    v.value = '';
+                }
+            });
+        }
+    }
+    function checkNumber(id) {
+        var v = document.getElementById(id);
+        var v1 = document.getElementById("div3");
+        v1.innerHTML = '';
+        if (v.value.length === 11) {
+            if (v.value.indexOf(' ') >= 0) {
+                v1.innerHTML = '<font color="Red">Number Cannot Contain Spaces</font>';
+                v.value = '';
+            }
+            else {
+                $.post("@Url.Action("CheckNumber","Home")",
+            {
+                number: v.value
+            },
+            function (data) {
+                if (data == 0) {
+                    v1.innerHTML = '<font color="Green">Available</font>'
+                }
+                else if (data == 1) {
+                    v1.innerHTML = '<font color="Red">Not Available</font>'
+                    v.value = '';
+                }
+            });
+        }
+    }
+    }
+    function checkCredit(id) {
+        var v = document.getElementById(id);
+        var v1 = document.getElementById("div4");
+        v1.innerHTML = '';
+        if (v.value.length === 10) {
+            if (v.value.indexOf(' ') >= 0) {
+                v1.innerHTML = '<font color="Red">Credit Card Number Cannot Contain Spaces</font>';
+                v.value = '';
+            }
+            else {
+                $.post("@Url.Action("CheckCredit","Home")",
+            {
+                credit: v.value
+            },
+            function (data) {
+                if (data == 0) {
+                    v1.innerHTML = '<font color="Green">Available</font>'
+                }
+                else if (data == 1) {
+                    v1.innerHTML = '<font color="Red">Not Available</font>'
+                    v.value = '';
+                }
+            });
+        }
+    }
+    }
+    </script>

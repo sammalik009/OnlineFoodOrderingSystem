@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "ShowCart";
+    Layout = "~/Views/Shared/customerLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3"><h4 class="text-muted">Your Credit : @ViewBag.credit RS</h4></div>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Total Cart Items</th>
+            <th></th>
+            <th>Total Bill</th>
+            <th><button class="form-control" type="submit" onclick="placeCartOrder()" >Place Order</button></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                @ViewBag.items
+            </th>
+            <th></th>
+            <th>
+                @ViewBag.bill
+            </th>
+        </tr>
+    </tbody>
+</table>
+        <h1>Cart</h1>
+        <table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Item Title</th>
+            <th scope="col">Restaurant's Name</th>
+            <th scope="col">Payment</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in ViewBag.list)
+        {
+            <tr class="table-info">
+                <th scope="row">
+                    @v.itemName
+                </th>
+                <th scope="row">
+                    @v.restaurantName
+                </th>
+                <th scope="row">
+                    @v.payment
+                </th>
+                <th scope="row">
+                    @v.amount
+                </th>
+                <th scope="row">
+                    <button class="form-control" onclick="removeFromCart(@v.Id)">Remove From Cart</button>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+        <script>
+            function removeFromCart(id) {
+                if (confirm("Are you sure you want to remove this Item?") === true) {
+                    $.post("@Url.Action("RemoveFromCart","Home")",
+                {
+                    id: id,
+                },
+                function (data) {
+                    if (data == 0) {
+                        alert("Updated Successfully");
+                    }
+                    else if (data == 1) {
+                        alert("Not Able to update this Iem");
+                    }
+                    window.location.reload();
+                });
+                }
+            }
+            function placeCartOrder() {
+                var key = 0;
+                if (confirm("You want to pay by cash?") === false) {
+                    key = 1;
+                }
+                    $.post("@Url.Action("PlaceCartOrder","Home")",
+                {
+                    key:key
+                },
+                function (data) {
+                    if (data == 0) {
+                        alert("Updated Successfully");
+                    }
+                    else if (data == 1) {
+                        alert("Not Able to update this Iem");
+                    }
+                    window.location.reload();
+                });
+            }
+        </script>

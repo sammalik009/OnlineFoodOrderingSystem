@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<h1>TABLE</h1>
+
+<table class="table table-hover">
+    <th>Id</th>
+    <th>Name</th>
+    <th>Location</th>
+    @foreach (var v in ViewBag.list)
+    {
+        <tr class="table-success">
+            <td>@v.Id</td>
+            <td>@v.Name</td>
+            <td>@v.Location</td>
+        </tr>
+    }
+</table>

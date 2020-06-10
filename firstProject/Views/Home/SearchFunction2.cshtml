@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "SearchFunction2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Restaurants</h2>
+<table class="table table-hover">
+    <tbody>
+        @foreach (var r in ViewBag.list1) { 
+        <tr class="table-success">
+            <th scope="row">
+                <h4>
+                    <a href="~/Home/ViewRestaurant3/@r.restaurant.Id">
+                        @r.restaurant.RestaurantTitle
+                    </a>
+                </h4>
+            </th>
+        </tr>
+        }
+    </tbody>
+</table>
+<h2>Menus</h2>
+<div class="row">
+    @foreach (var i in ViewBag.list2)
+    {
+        <div class="card mb-3 col-md-4">
+            <h3 class="card-header">@i.image.Title</h3>
+            <div class="card-body">
+                <h5 class="card-title">@i.image.RestaurantName</h5>
+                <h6 class="card-subtitle text-muted">@i.image.Type</h6>
+            </div>
+            <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.image.ImagePath)" alt="Card image">
+            <div class="card-body">
+                <p class="card-text">@i.image.Description</p>
+                <p class="card-text">@i.image.price  RS Only</p>
+            </div>
+            <div class="card-body">
+                Quantity : <input type="number" class="form-control" min="0" id="@i.image.Id" />
+                <input type="submit" value="Place Order" class="form-control" onclick="placeOrder(@i.image.Id)" />
+                <input type="submit" class="form-control" value="Add To Cart" onclick="AddToCart(@i.image.Id)" />
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function placeOrder(id) {
+        var v = document.getElementById(id);
+        var amount = v.value;
+        var key=0;
+        if (v.value > 0) {
+            if(confirm("Do You Want To Pay By Cash?")===true){
+                key=1;
+            }
+            else{
+                key=0;
+            }
+                $.post("@Url.Action("PlaceOrder","Home")",
+            {
+                id : id,
+                amount : amount,
+                key : key
+            },
+            function (data) {
+                if (data == 0) {
+                    alert("Order Placed Successfully!");
+                    v.value=0;
+                }
+                else if (data == 1) {
+                    alert("Order Cannot Be Placed!");
+                    v.value=0;
+                }
+            });
+    }
+    }
+    function AddToCart(id) {
+        var v = document.getElementById(id);
+        var amount = v.value;
+        var key=0;
+        if (v.value > 0) {
+            $.post("@Url.Action("AddToCart","Home")",
+        {
+            id : id,
+            amount : amount,
+            },
+        function (data) {
+            if (data == 0) {
+                alert("Added Successfully!");
+                v.value=0;
+            }
+            else if (data == 1) {
+                alert("Cannot Be Added Into Cart!");
+                v.value=0;
+            }
+        });
+    }
+    }
+</script>

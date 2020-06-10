@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "ViewMenuItems";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Menu Items</h2>
+<div class="row">
+    @foreach (var i in ViewBag.images)
+    {
+        <div class="card mb-3 col-md-4">
+            <h3 class="card-header">@i.Title</h3>
+            <div class="card-body">
+                <h5 class="card-title">@i.RestaurantName</h5>
+                <h6 class="card-subtitle text-muted">@i.Type</h6>
+            </div>
+            <img style="height: 200px; width: 100%; display: block;" src="@Url.Content(i.ImagePath)" alt="Card image">
+            <div class="card-body">
+                <p class="card-text">@i.Description</p>
+                <p class="card-text">@i.price  RS Only</p>
+            </div>
+            <div class="card-body">
+                <input type="submit" value="Place Order" class="form-control" onclick="removeMenu(@i.Id)" />
+            </div>
+        </div>
+    }
+</div>
+<script>
+    function removeMenu(id) {
+                $.post("@Url.Action("RemoveMenu","Home")",
+            {
+                id : id
+            },
+            function (data) {
+                if (data == 0) {
+                    alert("Item Removed Successfully!");
+                    window.location.reload();
+                }
+                else if (data == 1) {
+                    alert("Item Cannot Be Removed");
+                }
+            });
+    }
+</script>
